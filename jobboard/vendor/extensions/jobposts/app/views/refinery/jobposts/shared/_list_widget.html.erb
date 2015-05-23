@@ -1,0 +1,28 @@
+<!-- using this widget when showing jobs on other sites than the job listing main page -->
+<% if @widget_jobs.any? %>
+  <aside class="side_jobs">
+    <h2><%= t(:current_jobs, :scope => [:refinery, :jobposts, :shared, :listing]) %></h2>
+		<hr />
+    <div class="jobposts_small">
+		
+		<table class="table table-condensed">  
+		  <thead>
+				<tr>  
+			    <th><%= t("activerecord.attributes.refinery/jobposts/jobpost.title") %></th>
+					<th><%= t("activerecord.attributes.refinery/jobposts/jobpost.created_at") %></th>
+			  </tr>
+			</thead>
+    
+			<tbody>  
+			  <% @widget_jobs.each do |jobpost| %>  
+			  <tr>  
+			    <td><%= link_to truncate(jobpost.title, :length => 20), refinery.jobposts_jobpost_path(jobpost) %></td>  
+			    <td><%= l(jobpost.created_at, :format => :nice) %></td>   
+			  </tr>  
+			  <% end %> 
+			</tbody> 
+		</table> 
+				<%= link_to t(:view_more, :scope => [:refinery, :jobposts, :shared, :listing]), refinery.jobposts_jobposts_path, :class => 'mini-joblist-link' %>
+			</div>
+  </aside>
+<% end %>

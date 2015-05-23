@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<%= render '/refinery/html_tag' %>
+  <% site_bar = render('/refinery/site_bar', :head => true) -%>
+  <%= render '/refinery/head' %>
+  <body>
+    <%= site_bar -%>
+    <%= render '/refinery/ie6check' if request.env['HTTP_USER_AGENT'] =~ /MSIE/ -%>
+    <div class="page_container filterpatch">
+			<section class="wrapper">
+		      <!-- <header class="header"> -->
+		        <%= render '/refinery/header' -%>
+		      <!-- </header> -->
+          <!-- Use flash container for admin messages -->
+          <div id="flash_container" class="flash_container">
+            <%= render :partial => '/refinery/jobposts/shared/flashes', :locals => {:flash => flash} %>
+          </div>
+		      <section class="page">
+          <% unless @page.content_for(:side_body).blank? %>
+            <section class='side_body_content'>
+              <%=raw @page.content_for(:side_body) %>
+            </section>
+          <% end %>
+		        <%= yield %>
+            <%= render '/refinery/inner_footer' -%>
+		      </section>
+		      <footer>
+		        <%= render '/refinery/footer' -%>
+		      </footer>
+			</section>
+    </div>
+    <!-- Add permanent contact box at side, include JS at end -->
+    <%= render '/refinery/shared/contact_box' -%>
+    <%= render '/refinery/javascripts' %>
+  </body>
+</html>

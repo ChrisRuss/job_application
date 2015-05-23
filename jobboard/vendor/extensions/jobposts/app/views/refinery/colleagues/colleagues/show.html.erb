@@ -1,0 +1,23 @@
+<% content_for :body_content_title do %>
+  <%= @page.title %>
+<% end %>
+
+<% if @colleagues.any? %>
+	<% content_for :body do %>
+		<%= render '/refinery/colleagues/colleagues/teamlist' -%>
+		<%= render '/refinery/colleagues/colleagues/teammember', colleague: @colleague ? @colleague : @colleagues.first -%>
+	<% end %>
+<% end %>
+
+
+
+
+
+<% content_for :side_body do %>
+  <%= render '/refinery/jobposts/shared/list_widget' %>
+<% end %>
+
+<%= render '/refinery/content_page' %>
+<% unless @colleagues.any? %>
+	<%= t('no_results', :scope => [:refinery, :colleagues, :colleagues, :show]) %>
+<% end %>

@@ -1,0 +1,9 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      %a.close{"data-dismiss" => "modal", "aria-hidden" => "true"} &#215;
+      %h3= I18n.t "beta_stadium.home.thankyou"
+    .modal-body
+      %h4= I18n.t "beta_stadium.home.thankyoutext"
+    .modal-footer
+      %a.btn{"data-dismiss" => "modal", "aria-hidden" => "true"}= I18n.t "buttons.close_btn"

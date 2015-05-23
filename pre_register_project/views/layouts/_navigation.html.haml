@@ -1,0 +1,17 @@
+= link_to image_tag('logo.png'), root_path, :class => 'brand pull-right'
+%ul.nav.nav-pills
+	- if user_signed_in?
+		%li
+			= link_to t('accountmenu.logout'), destroy_user_session_path, :method=>'delete'
+	- else
+		%li{class: current_page?(new_user_session_path) ? 'active' : 'inactive' }
+			= link_to t('accountmenu.sign_in'), new_user_session_path
+	- if user_signed_in?
+		%li
+			= link_to t('accountmenu.edit_account'), edit_user_registration_path
+		- if (can? :invite, User) && current_user.has_invitations_left?
+			%li
+				= link_to t('inviter.send_invitation_link') + " " + t('inviter.invites', :left => (current_user.invites_left >= 3 ? "3+" : "< 3")), new_user_invitation_path
+		- if current_user.has_role? :admin
+			%li
+				= link_to t('accountmenu.admin_link'), admin_users_path

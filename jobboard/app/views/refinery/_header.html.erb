@@ -1,0 +1,15 @@
+<%= render(:partial => "/refinery/menu", :locals => {
+             :dom_id => 'menu',
+             :css => 'visible-desktop visible-tablet menu',
+             :hide_children => false
+           }) %>
+           <%= render(:partial => "/refinery/menu", :locals => {
+                        :dom_id => 'submenu',
+                        :hide_children => false,
+                        :roots =>  refinery_menu_pages,
+                        :extra_suffix => 'submenu',
+           						 :css => 'visible-phone submenu filterpatch clearfix'
+                      }) %>
+ <div class="simple filterpatch">
+     <img src="<%= asset_path 'logo.png' %>" class="logo" alt="logo">
+ </div>

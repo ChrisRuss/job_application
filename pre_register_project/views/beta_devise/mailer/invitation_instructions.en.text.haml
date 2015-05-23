@@ -1,0 +1,13 @@
+:plain
+Hello #{@resource.email}!
+=""
+=""
+#{@resource.invited_by.email} has invited you to #{ActionMailer::Base.default_url_options[:host]}, you can accept it through the link below.
+=""
+= accept_invitation_url(@resource, :invitation_token => @token, :invitermail => @resource.invited_by.email)
+(If the link doesn't work, please copy and paste it into your browser.)
+=""
+If you don't want to accept the invitation, please ignore this email. Your account won't be created until you access the link above and set your password.
+=""
+If you do accept, we really appreciate that you are joining our service. For any suggestions, criticism, etc., please don't hesitate to send us a message. Best regards, your
+#{ActionMailer::Base.default_url_options[:host]} team

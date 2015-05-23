@@ -1,0 +1,38 @@
+<% content_for :body do %>
+  <div class='contacts'>
+    <%=raw @page.content_for(Refinery::Pages.default_parts.first.to_sym) %>
+
+    <%= form_for @contact do |f| %>
+      <%= render '/refinery/admin/error_messages',
+                 :object => @contact,
+                 :include_object_name => true  %>
+
+      <div class='field subject_field string_field'>
+        <%= f.required_label :subject %>
+        <%= f.text_field :subject %>
+      </div>
+
+      <div class='field email_field string_field'>
+        <%= f.required_label :email %>
+        <%= f.text_field :email %>
+      </div>
+
+      <div class='field message_field text_field'>
+        <%= f.label :message %>
+        <%= f.text_area :message, :rows => 8, :class => 'contact_message' %>
+      </div>
+
+      <div class='submit'>
+        <%= f.submit t('.send'), :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% content_for :side_body do %>
+  <%= render '/refinery/jobposts/shared/list_widget' %>
+<% end %>
+
+<div class="with-widget">
+  <%= render '/refinery/content_page' %>
+</div>

@@ -1,0 +1,250 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+ 
+ /** Stripped out around 600 lines... so it just serves as example of me using mixins, SASS etc. */
+ 
+/* include Open Sans as defined font */
+ @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+ 
+ /* basic variables are only defined once. so include where needed */
+ @import "../defaults/basic_vars";
+ 
+ body {
+   background: $darkback;
+ }
+ 
+ 
+ body, h1, h2, h3, h4, h5, h6
+ {
+   @include base_font;
+   color: #333;
+   margin: 0;
+ }
+ 
+ p, .links {
+   @include base_font;
+   color: #333;
+   font-size: $deffont;
+ }
+ 
+ .directions {
+   font-size: $deffont;
+   table {
+     width: 450px;
+     table-layout: auto;
+   }
+ }
+ 
+ h1, h2, h3, h4, h5, h6 {
+   @include signature_font;
+ }
+ 
+ h1 {
+      font-size: $bigfont;
+      text-transform: uppercase;
+ }
+ 
+ h2 {
+      font-size: 1.125em;
+ }
+ 
+ h3 {
+      font-size: $deffont2;
+ }
+ 
+ h4 {
+      font-size: $deffont;
+      font-weight: bold;
+ }
+ 
+ a {
+     text-decoration: none;
+     color: $basic_green;
+ }
+ 
+ div.simple
+ {     
+     position: relative;
+     width: 960px;
+     height: 151px;
+     margin: 5px 10px 10px -71px;
+     -webkit-box-shadow: 0px 2px 4px #888;
+     -moz-box-shadow: 0px 2px 4px #888;
+     box-shadow: 0px 2px 4px #888;
+     background: url(<%= image_path 'partner.png' %>) no-repeat -5px right;
+
+     /* use gradient mixin to include all needed cross browser styles */
+     @include maingreygradient(left top, left bottom, #e5e5e5, #ffffff, #dbdbdb, $opt: "url(<%= image_path 'partner.png' %>) no-repeat bottom right,");
+ }
+ 
+ /* IE 9 needs a bit help */
+ .ie9 {
+   div.simple {
+          background-position: center right;
+          background-repeat: no-repeat;
+          behavior: none;
+   }
+ } 
+
+  div.teammember .details .vcard-icon {
+    float: right;
+    text-align: right;
+    width: 80px;
+    img {
+          /* size for IE! */
+      width: 30px;
+      height: 20px;
+    }
+  }
+  
+  div.teammember .details .member-name {
+    line-height: 23px;
+    color: $basic_green;
+    font-weight: bold;
+  }
+  
+ .contact {
+     display: none;
+     width: 250px;
+     height: 280px;
+     overflow: hidden;
+     position: fixed;
+     top:160px;
+     right:-250px;
+     
+     background: rgb(227,231,234); /* Old browsers */
+     background: #e3e7ea;
+ 
+     -webkit-box-shadow: 0px 2px 6px 2px #000000; /* webkit browser*/ 
+     -moz-box-shadow: 0px 2px 6px 2px #000000;	/* firefox */ 
+     box-shadow: 0px 2px 6px 2px #353535;
+     /* PIE.htc as IE browser fix for box shadow... */
+    behavior: url(<%= asset_path 'PIE.htc' %>);
+ }
+ 
+ 
+ a.pull_contact {
+   @include signature_font;
+     background: #ffffff;
+     display: block;
+     width:140px;
+     height:35px;
+     float: right;
+ 
+     text-align: center;
+     color: grey;
+     padding-top: 5px;
+     font-size: $bigfont;
+     text-decoration: none;
+     text-transform: uppercase;
+ 
+     position: fixed;
+     top: 260px;
+     right: -50px;
+ 
+ 
+     -webkit-box-shadow: -3px 0px 6px #000000; /* webkit browser*/ 
+     -moz-box-shadow: -3px 0px 6px #000000;	/* firefox */ 
+     box-shadow: -3px 0px 6px #353535;
+
+     /* gradients won't work on all browsers, so include "image" inline for those not supporting gradients */ 
+     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U1ZTVlNSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkYmRiZGIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+
+     @include maingreygradient(left top, right top, #e5e5e5, #ffffff, #dbdbdb);
+     
+     behavior: url(<%= asset_path 'PIE.htc' %>);
+ }
+ 
+ /* contact box button should be rotated... */
+ a.pull_contact {
+   -webkit-transform: rotate(-90deg);
+   -moz-transform: rotate(-90deg);
+/*   -ms-transform: rotate(-90deg);*/
+   -o-transform: rotate(-90deg);
+   transform: rotate(-90deg); 
+
+   /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+   -webkit-transform-origin: 50% 50%;
+   -moz-transform-origin: 50% 50%;
+/*   -ms-transform-origin: 50% 50%;*/
+   -o-transform-origin: 50% 50%;
+   transform-origin: 50% 50%; 
+ }
+ 
+ .ie7, .ie8, .ie9 {
+   a.pull_contact.rotatebox {
+      writing-mode:lr-tb;
+      padding-right: 5px;
+      right: 0px;
+      width:35px;
+      height:140px;
+    }
+ }
+ 
+ .subnavi {
+     -webkit-box-shadow:  -0px 0px 6px #000000; /* webkit browser*/ 
+     -moz-box-shadow: -0px 0px 6px #000000;	/* firefox */ 
+     box-shadow: -0px 0px 6px #353535;
+     position: relative;
+     width: 350px;
+     margin-left: 530px;
+     padding: 6px 6px;
+     @include maingreygradient(left top, left bottom, #e5e5e5, #ffffff, #dbdbdb);
+    behavior: url(<%= asset_path 'PIE.htc' %>);
+     
+ }
+ 
+ /* design jobposts table */
+.jobposts table {
+  tr {
+    th {
+      i {
+       margin-top: 3px; 
+       margin-left: 2px;
+      }
+    }
+    td:last-child, th:last-child {
+      width: 96px;
+      text-align: right;
+      margin-right: 5px;
+    }
+    td:first-child, th:first-child {
+      width: 180px;
+    }
+    td:nth-child(2), th:nth-child(2) {
+      width: 140px;
+    }
+  }
+}
+
+.jobposts_small table {
+  width: 300px;
+}
+
+.jobposts_small {
+  .table caption + thead tr th:first-child,
+.table caption + thead tr td:first-child,
+.table colgroup + thead tr th:first-child,
+.table colgroup + thead tr td:first-child,
+.table thead:first-child tr th:first-child,
+.table thead:first-child tr td:first-child {
+    overflow: hidden;
+    width: 180px;
+  }
+  .table tr {
+    td:last-child, th:last-child {
+      text-align: right;
+    }
+  }
+}

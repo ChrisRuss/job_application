@@ -1,0 +1,7 @@
+#request-invite.modal{"role" => "dialog", "aria-hidden" => "true", :style => "display: block;"}
+  = render :partial => 'subscribe', :layout => false
+- content_for :jumbo do
+  #romance-copy{:style => "text-align: center; margin-top: 80px"}
+    %h2= I18n.t('beta_stadium.want_in')
+  #call-to-action{:style => "text-align: center; margin-top: 80px"}
+    %a.btn.btn-primary.btn-lg{"data-toggle" => "modal", "data-target" => "#request-invite"}= I18n.t('accountmenu.pre_register')

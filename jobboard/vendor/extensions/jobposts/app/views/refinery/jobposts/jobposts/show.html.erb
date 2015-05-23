@@ -1,0 +1,45 @@
+	 <section class="jobpost-meta">
+  <p>
+		<%= t('activerecord.attributes.refinery/jobposts/jobpost.token') -%> <span class="referenz"><%= @jobpost.token -%> <sup class="highlight-tooltip qmark" data-togle="tooltip" data-original-title="<%= t('use_ref', :scope => [:refinery, :jobposts, :jobposts, :show]) -%>">?</sup></span> | 
+		<%= t("activerecord.attributes.refinery/jobposts/jobpost.working_field") %>
+    <%= @jobpost.working_field %> | <%= t("activerecord.attributes.refinery/jobposts/jobpost.region") %>
+    <%= @jobpost.region %> | <%= t("activerecord.attributes.refinery/jobposts/jobpost.job_level") %>
+    <%= @jobpost.job_level %> | <%= t("activerecord.attributes.refinery/jobposts/jobpost.created_at") %>
+    <%= l(@jobpost.created_at) %>
+  </p>
+		<p class="no-js"><%= t('use_ref', :scope => [:refinery, :jobposts, :jobposts, :show]) -%></p>
+</section>
+
+<% content_for :body_content_title do %>
+<div class="clearfix"><span class="left-align"><%= @jobpost.title -%></span><span class="right-align"><%= link_to image_tag("pdf.png", :alt => "Job - PDF"), refinery.jobposts_jobpost_path(@jobpost, :format => :pdf), :class => "pdf-file" -%></span></div>
+<% end %>
+
+<% content_for :body do %>
+  <article class="jobpost-content">
+    <header><h1><%= t("activerecord.attributes.refinery/jobposts/jobpost.job_description") %></h1></header>
+    <div class="description">
+      <%=raw @jobpost.job_description %>
+    </div>
+  </article>
+<% end %>
+
+<%= render '/refinery/content_page' -%>
+
+<aside class="actions"><p>
+	<% setting_sym = "apply#{I18n.locale.to_s.downcase}" %>
+	<% apply_text = t("refinery.jobposts.jobposts.show.apply") %>
+	<% editable_text = ::Refinery::Setting.find_or_set("#{setting_sym}", "#{apply_text}") %>
+		<% mailaddress = ::Refinery::Setting.get(:contact_mail) %>
+	<%= editable_text.gsub('{ref_token}', @jobpost.token).html_safe -%> 	<%= mail_to mailaddress, mailaddress, :subject => "Ref: #{@jobpost.token}" -%></p>
+</aside>
+
+<% content_for :javascripts do %>
+  <%= javascript_include_tag 'btstrp' %>
+	<script>
+	jQuery(document).ready(function($) {
+	    $(".highlight-tooltip").tooltip({
+	    });
+			$(".no-js").hide();
+	  });
+	</script>
+<% end %>

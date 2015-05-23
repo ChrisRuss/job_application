@@ -1,0 +1,31 @@
+<!-- Special PDF view, based on HTML language, rendered through external lib -->
+   <section class="jobpost-meta">
+  <p>
+		<%= t('activerecord.attributes.refinery/jobposts/jobpost.token') -%> <span class="referenz"><%= @jobpost.token -%></span> | 
+		<%= t("activerecord.attributes.refinery/jobposts/jobpost.working_field") %>
+    <%= @jobpost.working_field %> | <%= t("activerecord.attributes.refinery/jobposts/jobpost.region") %>
+    <%= @jobpost.region %> | <%= t("activerecord.attributes.refinery/jobposts/jobpost.job_level") %>
+    <%= @jobpost.job_level %> | <%= t("activerecord.attributes.refinery/jobposts/jobpost.created_at") %>
+    <%= l(@jobpost.created_at) %>
+  </p>
+		<p class="no-js"><%= t('use_ref', :scope => [:refinery, :jobposts, :jobposts, :show]) -%></p>
+</section>
+
+<h1>
+<div class="clearfix"><span class="left-align"><%= @jobpost.title -%></span></div>
+</h1>
+
+  <article class="jobpost-content">
+    <header><h1><%= t("activerecord.attributes.refinery/jobposts/jobpost.job_description") %></h1></header>
+    <div class="description">
+      <%=raw @jobpost.job_description %>
+    </div>
+  </article>
+
+<aside class="actions"><p>
+	<% setting_sym = "apply#{I18n.locale.to_s.downcase}" %>
+	<% apply_text = t("refinery.jobposts.jobposts.show.apply") %>
+	<% editable_text = ::Refinery::Setting.find_or_set("#{setting_sym}", "#{apply_text}") %>
+		<% mailaddress = ::Refinery::Setting.get(:contact_mail) %>
+	<%= editable_text.gsub('{ref_token}', @jobpost.token).html_safe -%> 	<%= mail_to mailaddress, mailaddress, :subject => "Ref: #{@jobpost.token}" -%></p>
+</aside>

@@ -1,0 +1,83 @@
+<section class='location clearfix'>
+	<header>
+    <!-- yes, we are prepared for multi language, so translate... -->
+		<h1><%= t(:header, scope: [:refinery, :directions, :gmaps]) -%></h1>
+	</header>
+	<div class='map clearfix' id='map'></div>
+	<div class='routing clearfix'>
+		<div class='geocode-form'>
+			<form id="routeform">
+				<div class="form-inline">
+					<div class="input-append">
+			  <input type="text" class="address-input" id='visitor-address' placeholder="<%= t(:address_placeholder, scope: [:refinery, :directions, :gmaps]) -%>"><button type="submit" id='route-me' class="btn"><%= t(:route_request, scope: [:refinery, :directions, :gmaps]) -%></button></div></div><br />
+				<a href="#" id='get-location' title='<%= t(:get_me, scope: [:refinery, :directions, :gmaps]) -%>' class="btn" ><%= t(:get_me, scope: [:refinery, :directions, :gmaps]) -%></a>
+			</form>
+		</div>
+		<div id='error-box' class="routing-errors">
+		</div>
+		<div class='page-content' id='page-content'>
+      <!-- Directions box will be used in combination with direction.js to provide driving directions-->
+			<div class='directions' id='directions'>
+			</div>
+			<%= render '/refinery/content_page' %>
+		</div>
+	</div>
+</section>
+
+<% content_for :javascripts do %>
+	  <%= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true' %>
+  <%= javascript_include_tag 'routing' %>
+
+<script>
+function error_alert(status) {
+  // Thanks to rails, we can also internationalize JS messages... :-)
+	alert("<%= t(:ours_not_found, scope: [:refinery, :directions, :gmaps]) -%> " + status);
+}
+
+function error_box_msg(txt) {
+	jQuery("#error-box").append(txt);
+}
+
+function reset_error() {
+	jQuery("#error-box").text("");
+}
+
+jQuery(document).ready(function($) {
+  
+  // Use routing JS and initialize map with @address from back-end
+	initialize_map('<%= @address.to_s -%>', 'map','directions', error_alert);
+				
+				// If the browser supports the Geolocation API
+        if (typeof navigator.geolocation == "undefined") {
+          error_box_msg("<%= t(:no_gps, scope: [:refinery, :directions, :gmaps]) -%>");
+          return;
+        }
+        $("#get-location").click(function(event) {
+          event.preventDefault();
+          navigator.geolocation.getCurrentPosition(function(position) {
+            geocoder.geocode({
+              "location": new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+            },
+            function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK)
+                $("#visitor-address").val(results[0].formatted_address);
+              else
+                error_box_msg("<%= t(:not_found, scope: [:refinery, :directions, :gmaps]) -%><br />");
+            });
+          },
+          function(positionError){
+            error_box_msg("Error: " + positionError.message + "<br />");
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10 * 1000 // 10 seconds
+          });
+        });
+        $("#routeform").submit(function(event) {
+          event.preventDefault();
+          calcRoute($("#visitor-address").val(), function(){error_box_msg("<%= t(:no_route, scope: [:refinery, :directions, :gmaps]) -%><br />")}, function(){reset_error();});
+        });
+				
+});
+</script>
+<% end %>

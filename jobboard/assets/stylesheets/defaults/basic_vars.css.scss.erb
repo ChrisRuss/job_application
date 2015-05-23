@@ -1,0 +1,84 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+/* Core variables, defined to override some  */
+$base_path_pie: asset_path('PIE.htc', nil);
+$basic_fonts: Verdana, freesans, sans-serif;
+$highlight_fonts: 'Open Sans', Verdana, freesans, sans-serif;
+$bigfont: 1.313em;
+$deffont: 0.813em;
+$deffont2: 1.0em;
+$smallfont: 0.625em;
+$darkback: #1c826e;
+/*$basic_green: #008e7d;*/
+$basic_green: #0E6451;
+$defaultpagemargin: 15px;
+$basicgrey: #e3e7ea;
+
+@mixin base_font {
+  font-family: $basic_fonts;
+  font-size: 100%;
+}
+
+@mixin signature_font {
+  font-family: $highlight_fonts;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+/** Three stop gradient mixin, use to define CSS background of some boxes
+* Parameter:
+* from; to - text arrays, using css directions for gradients
+* (where possible, some directions may not apply for certain browsers)
+* colorstop1; colorstop2; colorstop3 - Gradient colors, 1st at 0%, 2nd at 50%, 3rd at 100%
+* opt - additional background options
+* Defaults generate top to bottom grey gradient
+* 
+* Returns: Cross browser compatible CSS definition for the desired gradient
+* (as compatible as possible, as not all definitions can be used in all browsers)
+*
+* could also be more general by using a 2D Array, Map or similar to provide more color stops,
+* but not needed for this project... Don't over-optimize
+**/
+@mixin threestopgradient($from: left top, $to: left bottom, $colorstop1, $colorstop2, $colorstop3, $opt:"") {
+  $rot: 0deg;
+  $direction:bottom;
+  $start:top;
+  $fromx: nth($from, 1);
+  $fromy: nth($from, 2);
+  $tox: nth($to, 1);
+  $toy: nth($to, 2);
+  @if $fromx == $tox {
+    $direction: $toy;
+    $start: $fromy;
+    $rot: 90deg;
+  } @else if $fromy == $toy {
+    $direction: $tox;     
+    $start: $fromx;
+  } @else{
+    $direction: $to;
+    $start: $from;
+  }
+  
+/*  background: #e5e5e5; for old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  
+  background:  #{$opt} -moz-linear-gradient($start,  $colorstop1 0%, $colorstop2 50%, $colorstop3 100%); /* FF3.6+ */
+  background: #{$opt} -webkit-gradient(linear, $from, $to, color-stop(0%, $colorstop1), color-stop(50%, $colorstop2), color-stop(100%, $colorstop3)); /* Chrome,Safari4+ */
+  background: #{$opt} -webkit-linear-gradient($start,  $colorstop1 0%, $colorstop1 50%, $colorstop1 100%); /* Chrome10+,Safari5.1+ */
+  background: #{$opt} -o-linear-gradient($start,  $colorstop1 0%, $colorstop2 50%, $colorstop3 100%); /* Opera 11.10+ */
+  background: #{$opt} -ms-linear-gradient($start,  $colorstop1 0%, $colorstop2 50%, $colorstop3 100%); /* IE10+ */
+  background: #{$opt} linear-gradient(to $direction,  $colorstop1 0%, $colorstop2 50%, $colorstop3 100%); /* W3C */
+  -pie-background: #{$opt} linear-gradient($rot, $colorstop1 0%, $colorstop2 50%, $colorstop3) 0 0 / 50px #0ae;
+  behavior: url(asset_path('PIE.htc', nil));
+}

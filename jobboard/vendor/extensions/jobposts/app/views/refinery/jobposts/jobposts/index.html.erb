@@ -1,0 +1,46 @@
+<% content_for :body do %>
+  <% if searching? || filtering? %>
+    <% params[:search] = (params[:search] == nil) ? {} : params[:search] %>
+    <h2><%= t('results_for', :scope => 'refinery.admin.search', :query =>  params[:search]) %></h2>
+  <% end %>
+<!-- As we are using bootstrap base for the design, using a special renderer -->
+	<%= will_paginate @jobposts, :renderer => "BootstrapPaginationHelper::LinkRenderer" %>
+<section id='jobposts' class='jobposts'>
+	<table class="table table-striped">  
+	  <thead>
+			<tr>  
+		    <th><%= jobpost_column_head("title", params) %></th>
+				<th><%= jobpost_column_head("working_field", params) %></th>
+				<th><%= jobpost_column_head("region", params) %></th>
+				<th><%= jobpost_column_head("job_level", params) %></th>
+				<th><%= jobpost_column_head("created_at", params) %></th>
+				<th>&nbsp;</th>
+		  </tr>
+		</thead>
+    
+		<tbody>  
+		  <% @jobposts.each do |jobpost| %>  
+		  <tr>  
+		    <td><%= link_to jobpost.title, refinery.jobposts_jobpost_path(jobpost) %></td>  
+		    <td><%= jobpost.working_field %></td>  
+		    <td><%= jobpost.region %></td>  
+		    <td><%= jobpost.job_level %></td>  
+		    <td><%= l(jobpost.created_at) %></td>   
+				<td><%= link_to image_tag("pdf.png", :alt => "Job - PDF"), refinery.jobposts_jobpost_path(jobpost, :format => :pdf), :class => "pdf-file" -%></td>
+		  </tr>  
+		  <% end %> 
+		</tbody> 
+	</table>  
+	<%= will_paginate @jobposts, :renderer => "BootstrapPaginationHelper::LinkRenderer" %>
+  
+  <% unless @jobposts.any? %>
+    <p><%= t('no_results', :scope => 'refinery.admin.search') %></p>
+  <% end %>
+	</section>
+<% end %>
+
+<%= render '/refinery/content_page' %>
+
+<aside id='actions' class='actions'>
+	      <%= render '/refinery/jobposts/shared/filter', :url => refinery.jobposts_jobposts_path %>
+</aside>

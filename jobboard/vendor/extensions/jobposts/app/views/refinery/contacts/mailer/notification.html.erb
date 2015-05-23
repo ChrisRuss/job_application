@@ -1,0 +1,17 @@
+<%= t('.greeting') %>,<br/>
+<br/>
+<%= t('.you_recieved_new_contact') %><br/>
+<br/>
+<%= t('.contact_starts') %><br/>
+<br/>
+<%= t('.subject', :default => t('activerecord.attributes.refinery/contacts/contact.subject')) %>: <%= @contact.subject %><br/>
+<%= t('.email', :default => t('activerecord.attributes.refinery/contacts/contact.email')) %>: <%= @contact.email %><br/>
+<%= t('.message', :default => t('activerecord.attributes.refinery/contacts/contact.message')) %>: 
+<%= @contact.message %>
+<br/>
+<%= t('.contact_ends') %><br/>
+<br/>
+<%= t('.closing_line') %><br/>
+<%= Refinery::Core.site_name %><br/>
+<br/>
+<%= t('.ps_html') %>

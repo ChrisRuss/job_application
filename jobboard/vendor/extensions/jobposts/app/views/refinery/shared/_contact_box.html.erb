@@ -1,0 +1,29 @@
+<a href="#" class="pull_contact filterpatch rotatebox" title="Click to leave contact" STYLE="writing-mode: tb-rl"><%= t(:open_link, :scope => [:refinery, :shared, :contact_box]) -%></a>
+
+<div id="contact_side_box" class="contact">
+			    	<h2><%= t(:title, :scope => [:refinery, :shared, :contact_box]) -%></h2>
+	<div class="inner_back">
+		<div class="inner_text">
+    
+    	<address>
+        <p class="street"><%= Refinery::Contacts::Setting.default_contact_street -%></p>
+        <p class="city"><%= Refinery::Contacts::Setting.default_contact_city -%></p>
+    	</address>
+    
+    	<p class="phone"><%= t(:fon, :scope => [:refinery, :shared, :contact_box]) -%>: <span><%= Refinery::Contacts::Setting.default_contact_fon -%></span></p>
+    	<p class="fax"><%= t(:fax, :scope => [:refinery, :shared, :contact_box]) -%>: <span><%= Refinery::Contacts::Setting.default_contact_fax -%></span></p>
+    
+    	<p class="email"><%= t(:mail, :scope => [:refinery, :shared, :contact_box]) -%>: <a href="mailto:<%= Refinery::Contacts::Setting.default_contact_mail -%>"><%= Refinery::Contacts::Setting.default_contact_mail -%></a>
+    	<p class="web"><%= t(:web, :scope => [:refinery, :shared, :contact_box]) -%>: <%= link_to Refinery::Contacts::Setting.default_contact_web, "http://#{Refinery::Contacts::Setting.default_contact_web}" -%></p>
+    
+    	<ul class="links">
+      		<li><%= link_to t(:to_contact, :scope => [:refinery, :shared, :contact_box, :links]), refinery.new_contacts_contact_path %></a></li>
+					<% if get_directions_page %>
+					<li>
+						<%= link_to t(:to_location, :scope => [:refinery, :shared, :contact_box, :links]), (refinery.url_for(get_directions_page)) %>
+					</li>
+					<% end %>
+    	</ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,11 @@
+<address>
+	<p class="company"><strong><%= Refinery::Core.site_name -%></strong></p>
+  <p class="street"><%= Refinery::Contacts::Setting.default_contact_street -%></p>
+  <p class="city"><%= Refinery::Contacts::Setting.default_contact_city -%></p>
+</address>
+
+<p class="phone"><%= t(:fon, :scope => [:refinery, :shared, :contact_box]) -%>: <span><%= Refinery::Contacts::Setting.default_contact_fon -%></span></p>
+<p class="fax"><%= t(:fax, :scope => [:refinery, :shared, :contact_box]) -%>: <span><%= Refinery::Contacts::Setting.default_contact_fax -%></span></p>
+
+<p class="email"><%= t(:mail, :scope => [:refinery, :shared, :contact_box]) -%>: <a href="mailto:<%= Refinery::Contacts::Setting.default_contact_mail -%>"><%= Refinery::Contacts::Setting.default_contact_mail -%></a>
+<p class="web"><%= t(:web, :scope => [:refinery, :shared, :contact_box]) -%>: <%= link_to Refinery::Contacts::Setting.default_contact_web, "http://#{Refinery::Contacts::Setting.default_contact_web}" -%></p>

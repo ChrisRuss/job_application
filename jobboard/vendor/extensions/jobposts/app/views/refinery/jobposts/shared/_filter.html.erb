@@ -1,0 +1,38 @@
+<!-- This filter partial is used for admin back-end as well as user front-end -->
+  
+  <%= form_tag(url, :method => "get", :class => "form-search filter_form") do %>
+  <div class='search'>
+	  <div class="input-append">
+		<%= text_field_tag(:search, params[:search], {:size=>'22',  :class => "search-query span2"}) %>
+		<%= button_tag t('search_button', :scope => 'refinery.jobposts.shared.search'), :name => "search_submit", :type => 'submit', :class => "btn" -%>
+	</div>	
+		<%= link_to t("refinery.jobposts.shared.search.reset_search"), refinery.url_for({:only_path => false}.merge(add_filter_params)), :class => "btn" -%>
+	</div>
+		
+	<section class="filter-modul">
+		<div class="filter-boxes">
+		<%= fields_for 'filter' do |filter_param| %>
+		    <%= filter_param.label :working_field, t("activerecord.attributes.refinery/jobposts/jobpost.working_field") -%>
+				<%= filter_param.select(:working_field, options_for_select(::Refinery::Jobposts::Jobpost::ALLOWED_FIELD, :selected => (params[:filter].blank?) ? 0 : params[:filter][:working_field]), :include_blank => true) -%>
+
+  
+		    <%= filter_param.label :region, t("activerecord.attributes.refinery/jobposts/jobpost.region") -%>
+		    <%= filter_param.select(:region, options_for_select(::Refinery::Jobposts::Jobpost::ALLOWED_REGION, :selected => (params[:filter].blank?) ? 0 : params[:filter][:region]), :include_blank => true) -%>
+		    <%= filter_param.label :job_level, t("activerecord.attributes.refinery/jobposts/jobpost.job_level") -%>
+		    <%= filter_param.select(:job_level, options_for_select(::Refinery::Jobposts::Jobpost::ALLOWED_JOBLEVEL, :selected => (params[:filter].blank?) ? 0 : params[:filter][:job_level]), :include_blank => true) -%>
+
+					<%= button_tag t('filter_button', :scope => 'refinery.jobposts.shared.search'), :type=> 'submit', :name => "filter_submit", :class => 'btn' -%>
+					<%= link_to t("refinery.jobposts.shared.search.reset_filter"), refinery.url_for({:only_path => false}.merge(add_searchfield_params)), :class => 'btn' -%>
+				</div>
+		</section>
+			
+		<%# end %>
+		 
+		 <% if params[:wymeditor].presence %><input name='wymeditor' value='true' type='hidden'><% end %>
+  <% if from_dialog? %><input id='dialog' name='dialog' type='hidden' value='true' /><% end %>
+  <% if @callback.presence %><input name='callback' value='<%= @callback %>' type='hidden'><% end %>
+	<% end %>
+	
+	<% end %>
+	
+

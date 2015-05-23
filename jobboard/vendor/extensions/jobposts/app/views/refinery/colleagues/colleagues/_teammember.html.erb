@@ -1,0 +1,59 @@
+<div class="teammember">
+    <section class="details png_bg">
+			<div class="content">
+				<div class="member-header clearfix">
+					<p>
+						<span class="member-name">
+	      			<%= colleague.name %>
+						</span>
+						<span class="vcard-icon">
+							<%= link_to image_tag("vcard.png", :size => "30x20", :alt => "VCard", "data-original-title"=> t('vcard_tooltip', :scope => [:refinery, :colleagues, :colleagues, :show]), "class" => "vcard-tooltip", "data-toggle" => "tooltip"), refinery.colleagues_colleague_path(colleague, :format => :vcf) -%>
+	 					</span>
+					</p>
+					<p>
+			      <%= colleague.pos_title %>
+					</p>
+				</div>
+				<div class="member-content clearfix">
+			    <p class="phone">
+			  <span><%= t(:fon, :scope => [:activerecord, :attributes, "refinery/colleagues/colleague"]) -%></span>
+			        <span><%= (colleague.fon).empty? ? Refinery::Contacts::Setting.default_contact_fon : colleague.fon -%></span>
+			    </p>
+			    <p class="fax">
+			        <span><%= t(:fax, :scope => [:activerecord, :attributes, "refinery/colleagues/colleague"]) -%></span>
+			        <span><%= (colleague.fax).empty? ? Refinery::Contacts::Setting.default_contact_fax : colleague.fax -%></span>
+			    </p>
+			    <p class="email">
+			        <span><%= t(:mail, :scope => [:activerecord, :attributes, "refinery/colleagues/colleague"]) -%></span>
+			        <span><%= mail_to colleague.mail %></span>
+			    </p>
+				</div>
+	</div>   
+  </section>      
+	<section class="photo">
+    <p><img src="<%= asset_path 'leftedge.png' %>" height="161px" class="overlay png_bg" alt="Design Border, no real content.">
+			<% if colleague.pic %>
+      <%= image_fu colleague.pic, "160x160"-%>
+			<% else %>
+				<img src="<%= asset_path 'noprofile.png' %>" height="160px" class="memberphoto" alt="Photo of the teammember.">
+			<% end %>
+    </p>
+  </section>
+
+  <aside class="member_description clearer">
+    <article>
+			
+      <%=raw colleague.description %>
+		</article>
+  </aside>
+	</div>
+	
+	<% content_for :javascripts do %>
+	  <%= javascript_include_tag 'btstrp' %>
+		<script>
+		jQuery(document).ready(function($) {
+		    $(".vcard-tooltip").tooltip({
+		    });
+		  });
+		</script>
+	<% end %>

@@ -1,0 +1,3 @@
+- partial_to_render = (resource.errors.any? ? "subscribe" : "thankyou")
+:plain
+$('#request-invite.modal').html("#{j render(:partial => partial_to_render)}");

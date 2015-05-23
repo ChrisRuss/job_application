@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- PDF Generation Template -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-us" />
+    <title>Stellenangebot: <%= @jobpost.token %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Include PDF styles -->
+    <%= wicked_pdf_stylesheet_link_tag 'pdf' %>
+</head>
+<body>
+  <div class="page_container">
+		<section class="page">
+			<div class="wrapper">
+	      <!-- <header id="header"> -->
+	        <%= render 'header', :formats => [:pdf] -%>
+	      <!-- </header> -->
+	      <section class="inner">
+	        <%= yield %>
+	      </section>
+	      <footer>
+	        <%= render 'footer', :formats => [:pdf] -%>
+	      </footer>
+			</div>
+		</section>
+  </div>
+</body>
+
+</html>

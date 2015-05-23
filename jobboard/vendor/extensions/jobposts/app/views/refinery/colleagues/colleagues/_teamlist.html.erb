@@ -1,0 +1,9 @@
+  <aside class="teamlist">
+  <ul class="colleagues">
+    <% @colleagues.each do |colleague| %>
+      <li class="teammember<%= current_page?(refinery.colleagues_colleague_path(colleague)) ? ' active' : nil-%>">
+        <%= link_to_unless_current colleague.name, refinery.colleagues_colleague_path(colleague) %>
+      </li>
+    <% end %>
+  </ul>
+  </aside>

@@ -1,0 +1,7 @@
+<!-- Just a simple CMS template to include a joblisting widget of latest jobs -->
+<% content_for :side_body do %>
+  <%= render '/refinery/jobposts/shared/list_widget' %>
+<% end %>
+<div class="with-widget">
+  <%= render '/refinery/content_page' %>
+</div>
