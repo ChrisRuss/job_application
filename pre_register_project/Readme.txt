@@ -15,4 +15,4 @@ Implementation:
 
 To see some examples of some rspecs for a subproject based on some of the shared code, please see rspec_examples folder.
 
-To see some more code examples, see jobboard folder. To see the running app as demo, visit jobapply-chris.herokuapp.com
+To see some more code examples, see jobboard folder.
