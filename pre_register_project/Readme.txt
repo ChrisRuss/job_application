@@ -2,7 +2,6 @@ Details:
 The following files are “excerpts” from a special "job application" project with pre-registration and a waiting list. It also included VIP-users with the ability to invite people (on the waiting list as well as not pre-registered users)
 At that time the main idea behind was a “complete secret” preregistration with a “secret” invitation function - so that neither a visitor nor a "vip" with rights to send invitations could draw any conclusions whether someone was on the waiting list or not... (Admins could see the waiting list, but a VIP user was a special role...) Therefore some devise and invitation methods were overridden. (see devise_beta) 
 Also it included tracking of the inviting person to reward him later with a bonus system.
-As this functionality was dropped, I can share those publicly. Some project files are still in use, so I cannot share the complete source of the app.
 
 Implementation:
 * Rights and roles were defined via CanCan and rolify.
